@@ -1,0 +1,75 @@
+{% include "main/header.html" with title="Begivenhed"%}
+
+{% include "main/menu.html" %}
+
+<div id="section">
+    <!-- messages -->
+    {% for message in messages %}
+        <div id="message">
+            <h3>
+                {{message}}
+            </h3>
+        </div>
+    {% endfor %}
+    <!-- the left box with the event description -->
+    <div id="description_box">
+        <p>
+            <span class="bold">Detaljeret beskrivelse:</span><br>
+            {{event.description_long}}
+        </p>
+        <p>
+            <span class="bold">Sandhedsbetingelser:</span><br>
+            {{event.truth_conditions}}
+        </p>
+        <p>
+            <span class="bold">Dato for offentliggørelse:</span><br>
+            {{event.pub_date}}
+        </p>
+        <p>
+            <span class="bold">Dato for sidste forudsigelse:</span><br>
+            {{event.last_date}}
+        </p>
+        <p>
+            <span class="bold">Dato for afslutning:</span><br>
+            {{event.end_date}}
+        </p>
+        <p>
+            <span class="bold">Oprettet af:</span><br>
+            {{event.creator}}
+        </p>
+    </div>
+    <div id="make_prediction_box">
+        <p>Hvad er sandsynligheden for begivenheden?</p>
+        <!-- if event is dichotomous type -->
+        {% if event.prediction_type == "d" %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="percent"><input name="prediction" type="number" min="0" max="100" step="5" required /></div>
+                <input type="submit" value="Lav forudsigelse!" />
+            </form>
+        {% endif%}
+    </div>
+    <div id="user_predictions">
+        {% if user_predictions %}
+            <table>
+                <tr>
+                    <th>Dato</th>
+                    <th>Forudsigelse</th>
+                </tr>
+                <!-- loop over user predictions -->
+                {% for prediction in user_predictions %}
+                    <tr>
+                        <td>{{prediction.date}}</td>
+                        <td>{{prediction.prediction}}%</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <!-- if not predictions -->
+        {% if not user_predictions %}
+            <p>Du har endnu ikke lavet nogen forudsigelse om denne begivenhed. <br> Hvad venter du dog på???</p>
+        {% endif %}
+    </div>
+</div>
+
+{% include "main/footer.html" %}

@@ -1,0 +1,31 @@
+{% include "main/header.html" with title="log ind/ud"%}
+
+{% include "main/menu.html" %}
+<div id="section">
+{# Messages #}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% if logged_in %}
+    <p>Vil du gerne logge af?</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="logout" value="True">
+        <input type="submit", value="Befri mig fra dette sted!" />
+    </form>
+{% endif %}
+{% if not logged_in %}
+<p>Indtest brugernavn og adgangskode for at logge ind!</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        Brugernavn: {{form.username}} <br>
+        Adgangskode: {{form.password}} <br>
+        <input type="submit" value="Log ind!" />
+    </form>
+{% endif %}
+</div>
+{% include "main/footer.html" %}

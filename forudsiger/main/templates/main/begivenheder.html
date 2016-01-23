@@ -1,0 +1,38 @@
+{% include "main/header.html" with title="Begivenheder"%}
+
+{% include "main/menu.html" %}
+
+<div id="section">
+    <div id="events_div">
+        <table id="events_table">
+            <!-- table headers -->
+            <tr>
+                <th>Nummer</th>
+                <th>Beskrivelse</th>
+                <th>Unikke brugere</th>
+                <th>Forudsigelser</th>
+                <th>Dine forudsigelser</th>
+                <th>Startdato</th>
+                <th>Slutdata</th>
+                <th>Afsluttes</th>
+                <th></th>
+            </tr>
+            <!-- for loop -->
+            {% for event in events %}
+                <tr>
+                    <td>{{event.id}}</td>
+                    <td>{{event.description}}</td>
+                    <td>{{event.unique_users}}</td>
+                    <td>{{event.number_predictions}}</td>
+                    <td>{{event.number_predictions}}</td>
+                    <td>{{event.pub_date}}</td>
+                    <td>{{event.last_date}}</td>
+                    <td>{{event.end_date}}</td>
+                    <td><a href="begivenhed-{{event.id}}"><input type="submit", value="Lav forudsigelse/Detaljer" /></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% include "main/footer.html" %}
