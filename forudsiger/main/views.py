@@ -83,8 +83,6 @@ def leaderboard(request):
 
 #login page
 def login_page(request):
-    # return HttpResponse("log ind")
-
     #user already logged in?
     if request.user.is_authenticated():
         #was it a logout?
@@ -92,6 +90,11 @@ def login_page(request):
             if request.POST["logout"] == "True":
                 logout(request)
                 return redirect("index")
+
+        #is user a staff member?
+        if request.user.is_staff:
+            #show link to admin panel too
+            return render(request, 'main/login.html', {"logged_in": True, "staff": True})
 
         #show user profile/logout
         return render(request, 'main/login.html', {"logged_in": True})

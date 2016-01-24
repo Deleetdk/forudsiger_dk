@@ -17,6 +17,10 @@
         <input type="hidden" name="logout" value="True">
         <input type="submit", value="Befri mig fra dette sted!" />
     </form>
+    <!-- staff member -->
+    {% if staff %}
+        <p><td><a href="./admin"><input type="submit", value="Gå til adminpanelet!" /></a></p>
+    {% endif %}
 {% endif %}
 {% if not logged_in %}
 <p>Indtest brugernavn og adgangskode for at logge ind!</p>
