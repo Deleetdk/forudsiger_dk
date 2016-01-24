@@ -4,6 +4,8 @@
 #database
 db.sqlite3
 
-#settings
+#django settings
 settings.py
 
+#apache settings
+apachesettings

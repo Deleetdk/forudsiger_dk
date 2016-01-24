@@ -18,6 +18,6 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls), #if begins with admin, go to admin site
-    url(r'', include('main.urls')),  #if anything else, use the main site's urls
+    url(r'^forudsiger/admin/', admin.site.urls), #if begins with admin, go to admin site
+    url(r'forudsiger/', include('main.urls')),  #if anything else, use the main site's urls
 ]
