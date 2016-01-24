@@ -1,0 +1,9 @@
+#python compiled files
+*.py[cod]
+
+#database
+db.sqlite3
+
+#settings
+settings.py
+
