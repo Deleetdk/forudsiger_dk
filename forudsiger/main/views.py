@@ -36,6 +36,10 @@ def event(request, begivenhed_id):
 
     #if was a prediction
     if request.method == "POST":
+        #is user logged ind?
+        if not request.user.is_authenticated():
+            messages.error(request, "Du skal være logget ind for at kunne lave en forudsigelse!")
+            return render(request, "main/begivenhed.html", {"event": event})
         #get predicted value
         predicted_value = request.POST['prediction']
 
@@ -64,7 +68,11 @@ def event(request, begivenhed_id):
         return redirect("event", begivenhed_id = begivenhed_id)
 
     #user predictions on this event
-    user_predictions = Prediction.objects.filter(user = request.user, event = Event.objects.get(id = begivenhed_id))
+    #if user logged ind?
+    if request.user.is_authenticated():
+        user_predictions = Prediction.objects.filter(user = request.user, event = Event.objects.get(id = begivenhed_id))
+    else: #if anonymous, set to false
+        user_predictions = False
 
     #if it does, show it
     return render(request, "main/begivenhed.html", {"event": event, "user_predictions": user_predictions})
