@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 #models
 from main.models import *
 
+#time
+import django
+
 class Event(models.Model):
     #description of event
     description = models.TextField()
@@ -15,7 +18,7 @@ class Event(models.Model):
     truth_conditions = models.TextField()
 
     #start date
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', default=django.utils.timezone.now)
 
     #last prediction
     last_date = models.DateTimeField("last prediction date")
@@ -34,6 +37,10 @@ class Event(models.Model):
 
     #conditional event?
     conditional = models.BooleanField(default = False)
+
+    #str
+    def __str__(self):
+        return "%s Oprettet %s, sidste estimat %s." % (self.description, str(self.pub_date.date()), str(self.last_date.date()))
 
     #number of predictions about this event
     def number_predictions(self):
